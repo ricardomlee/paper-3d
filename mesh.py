@@ -1,11 +1,14 @@
+# off模型批量转换成obj文件
+# 安装open3d 0.9.0
+
 import open3d as o3d
 import os
 
 def off2obj(offile):
-    portion = os.path.splitext(offile)
-    mof=o3d.io.read_triangle_mesh(offile)
-    objfile=portion[0] + '.obj'
-    o3d.io.write_triangle_mesh(objfile,mof)
+    portion = os.path.splitext(offile)  # 分离文件名和后缀
+    mof=o3d.io.read_triangle_mesh(offile)  # Open3D读取off到mesh
+    objfile=portion[0] + '.obj'  # 要保存的文件名 Todo: 自定义保存目录
+    o3d.io.write_triangle_mesh(objfile,mof)  # mesh保存为obj文件
 
 def test(path):
     files = os.listdir(path)  # 获取当前目录的所有文件及文件夹
@@ -20,7 +23,7 @@ def test(path):
                 if extension_name[1] == '.off':
                     off2obj(file_path)
         except:
-            continue  # 可能会报错，所以用了try-except,如果要求比较严格，不需要报错，就删除异常处理，自己调试
+            continue
 
 
 test(r'F:\ModelNetS')
